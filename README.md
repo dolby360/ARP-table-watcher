@@ -1,0 +1,1 @@
+To clear arp table cash>> sudo ip neigh flush all
