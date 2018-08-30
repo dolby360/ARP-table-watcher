@@ -1,27 +1,16 @@
 import time
-from ReadArp import get_arp_table
+from ReadArp import ReadArpUtility
 from arp import arp
 
-initial_pair_of_ip_and_mac = []
+
 
 def main():
-    
-    for i in list(get_arp_table()): 
-        d = {}
-        key = i['HW address']
-        value = i['IP address']
-        d[key] = value
-        initial_pair_of_ip_and_mac.append(d)
+    ArpUtil = ReadArpUtility()
+    initial_pair_of_ip_and_mac = ArpUtil.get_pairs_of_mac_and_ip()
 
-    #print(initial_pair_of_ip_and_mac)
-
-    # while(True):
-    #     time.sleep(3)
-    #     for i in list(get_arp_table()): 
-    #         for j in initial_pair_of_ip_and_mac:
-    #             if i == j and i['HW address'] != j['HW address']:
-    #                 print('WORNING!!')
-    #             else:
-    #                 print("{0}   {1}  {2}  {3}".format(i,j,i['HW address'],j['HW address']))
+    while True:
+        newListOfArpTable = ArpUtil.get_pairs_of_mac_and_ip()
+        for i in range(0,len(newListOfArpTable)):
+            print('.')
 
 main()
