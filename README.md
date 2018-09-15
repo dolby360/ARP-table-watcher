@@ -12,6 +12,7 @@ Here you can learn how to integrate firebase with python:
 https://ozgur.github.io/python-firebase/
 
 install firebase:
+
 $ sudo pip3 install requests
 
 $ sudo pip3 install python-firebase
