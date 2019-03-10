@@ -36,6 +36,7 @@ class arpAnaliytics():
                     newList = list(listOf_ip_and_mac[i])
                 
                     for j in data_loaded:
+                        # If the MAC is the same but ip is defferent.
                         if newList[0] == j[0] and newList[1] != j[1]:
                             self.Alert_for_suspected_MAC_address(newList[0],newList[1],j[1])
                             infected_IP = True
