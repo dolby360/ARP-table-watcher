@@ -18,8 +18,14 @@ class arpAnaliytics():
         self.suspected_MACs = []
 
     def Alert_for_suspected_MAC_address(self,s_MAC,s_IP,victimIP):
+<<<<<<< HEAD
         saveMACin_blacklist(s_MAC)
             
+=======
+        if s_MAC not in self.suspected_MACs:
+            self.suspected_MACs.append(s_MAC)
+            saveMACin_blacklist(s_MAC)
+>>>>>>> 2900a8f523a076976fc88448a39cc961cdd30e2f
 
     def updateDataBase(self,listOf_ip_and_mac):
         if os.path.isfile(self.path_to_analiytic_json) and os.access(self.path_to_analiytic_json, os.R_OK):
@@ -28,6 +34,7 @@ class arpAnaliytics():
                 data_loaded = json.load(data_file)
                 log(data_loaded)
 
+<<<<<<< HEAD
             infected_IP = False
 
             #if not the first time
@@ -57,6 +64,31 @@ class arpAnaliytics():
                         listWithoutZeros.append(i)
                 self.updateLocalDataBase(listWithoutZeros)
 
+=======
+            #if not the first time
+            if data_loaded != {}:
+                for i in range(0,len(listOf_ip_and_mac)):
+                    newList = list(listOf_ip_and_mac[i])
+                
+                    for j in data_loaded:
+                        if newList[0] == j[0] and newList[1] != j[1]:
+                            self.Alert_for_suspected_MAC_address(newList[0],newList[1],j[1])
+                    
+                    if newList in data_loaded:
+                        pass
+                    elif newList[0] != '00:00:00:00:00:00':
+                        print(newList)
+                        data_loaded.append(newList)
+                        self.updateLocalDataBase(data_loaded)
+                log(data_loaded,True)
+            else:
+                listWithoutZeros = []
+                for i in listOf_ip_and_mac:
+                    if i[0] != '00:00:00:00:00:00':
+                        listWithoutZeros.append(i)
+                self.updateLocalDataBase(listWithoutZeros)
+
+>>>>>>> 2900a8f523a076976fc88448a39cc961cdd30e2f
     def updateLocalDataBase(self,listOf_ip_and_mac):
         with open(self.path_to_analiytic_json, 'w') as f:
             json.dump(listOf_ip_and_mac, f, ensure_ascii=False)
