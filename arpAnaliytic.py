@@ -20,10 +20,29 @@ class arpAnaliytics():
         self.suspected_MACs = []
         
     def Alert_for_suspected_MAC_address(self,s_MAC,s_IP,victimIP):
+        WeAlreadyAlertAboutThatInLastMinute = False
+
+        # checking if the last attack was at list minute ago
+        # if it was from the same mac
+        with open('history.csv', 'r') as f:
+            listOfAttacks = list(reversed(list(csv.reader(f))))
+            if len(listOfAttacks) != 0:
+
+                for row in listOfAttacks:
+                    if row[0] == s_MAC:
+                        lastAttack = row
+                        # Here we found attack last time in history 
+                        # From the current attacker 
+                        if ( float(time.time()) - float(lastAttack[7]) ) < 60 :
+                            WeAlreadyAlertAboutThatInLastMinute = True
+
+        if WeAlreadyAlertAboutThatInLastMinute:
+            return
+
         # assemble data
         def lookup(addr):
             try:
-                return socket.gethostbyaddr(str(victimIP))[0]
+                return socket.gethostbyaddr(str(addr))[0]
             except:
                 return 'Offline'
         victimName = lookup(victimIP)
@@ -31,11 +50,8 @@ class arpAnaliytics():
         date = time.strftime("%d/%m/%y")
         now = datetime.now(tz=pytz.timezone('Israel'))
         time_now = str(now.hour) +':'+ str(now.minute)
-
-        print (time.strftime("%Y,%m,%d,%H,%M,%S"))
-
-        #date = str(t[1]) + '/' + str(t[2]) + '/' +  str(t[3])
         line = [s_MAC,s_IP,victimIP,victimName,attackerName,date,time_now,time.time()] 
+        log('Alert',True)
         log(line,True)
 
         with open('history.csv', 'a') as f:
@@ -67,7 +83,6 @@ class arpAnaliytics():
                         if newList[0] == j[0] and newList[1] != j[1]:
                             self.Alert_for_suspected_MAC_address(newList[0],newList[1],j[1])
                             infected_IP = True
-                            print('Alert')
                     if (newList in data_loaded) or (infected_IP == True):
                         infected_IP = False
                         pass
