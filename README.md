@@ -1,7 +1,12 @@
-To clear arp table cash>>>>> sudo ip neigh flush all
+To clear arp table cash
+```Bash
+sudo ip neigh flush all
+```
 
-To give permissions to all subdirectories>>>>> sudo chmod -R 777 .
-
+To give permissions to all subdirectories
+```Bash
+sudo chmod -R 777 .
+```
 
 
 Must install:
