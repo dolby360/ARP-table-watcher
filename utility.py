@@ -1,12 +1,29 @@
 from ReadArp import ReadArpUtility
 import subprocess
 import time
+import sys, getopt, os 
 
 turnLog = False
 def log(string,printThis = False):
         if turnLog or printThis:
                 print(string)
 
+
+receiverEmail="mrdolbyking@gmail.com" 
+def sendEmail(attack_type,data):
+	# add subject to mail text
+	subject = "Subject: "+attack_type+" attack detected"
+	command = "echo "+subject+" > email.txt"
+	os.system(command)
+	
+	# add message to mail text
+	os.system("echo ' ' >> email.txt")
+	command = "echo " + data + " >> email.txt"
+	os.system(command)
+	# send mail text to receiver
+	command="cat email.txt | sendmail "+receiverEmail
+	os.system(command) 
+	log("Report email sent!")
 
 def ping_all():
         while True: 

@@ -53,16 +53,12 @@ class arpAnaliytics():
         line = [s_MAC,s_IP,victimIP,victimName,attackerName,date,time_now,time.time()] 
         log('Alert',True)
         log(line,True)
+        sendEmail('ARP Spoofing',str(line))
 
         with open('history.csv', 'a') as f:
             writer = csv.writer(f)
             writer.writerow(line)
         
-
-
-        
-
-            
 
     def updateDataBase(self,listOf_ip_and_mac):
         if os.path.isfile(self.path_to_analiytic_json) and os.access(self.path_to_analiytic_json, os.R_OK):

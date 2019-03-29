@@ -9,6 +9,7 @@ Must install:
 ```Bash
 sudo apt-get install nmap fping
 sudo pip3 install pytz
+sudo apt-get install sendmail
 ```
 
 Here you can learn how to integrate firebase with python:
