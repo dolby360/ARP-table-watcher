@@ -5,8 +5,15 @@ To give permissions to all subdirectories>>>>> sudo chmod -R 777 .
 
 
 Must install:
-fping>>>>> sudo apt-get install nmap fping
-
+ 
+```Bash
+sudo apt-get install nmap fping
+sudo pip3 install pytz
+```
 
 Here you can learn how to integrate firebase with python:
 https://ozgur.github.io/python-firebase/
+
+TODO:
+Raise errors to server side
+Support deferent time zoons
