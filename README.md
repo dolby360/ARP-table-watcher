@@ -1,3 +1,8 @@
+To run this:
+```Bash
+sudo python3 ./Watcher.py /home/pi/ARP-table-watcher
+```
+
 To clear arp table cash
 ```Bash
 sudo ip neigh flush all
