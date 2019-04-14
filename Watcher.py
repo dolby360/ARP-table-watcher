@@ -4,6 +4,7 @@ from arp import arp
 from arpAnaliytic import arpAnaliytics
 from utility import *
 import _thread
+import sys
 
 def main():
     # get all connected IPs in local
@@ -14,7 +15,7 @@ def main():
     ArpUtil = ReadArpUtility()
     initial_pair_of_ip_and_mac = ArpUtil.get_pairs_of_mac_and_ip()
     
-    arpAnal = arpAnaliytics()
+    arpAnal = arpAnaliytics(sys.argv[1:])
     arpAnal.updateDataBase(initial_pair_of_ip_and_mac)
 
     log(initial_pair_of_ip_and_mac)
