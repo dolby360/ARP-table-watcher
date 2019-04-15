@@ -14,11 +14,11 @@ class arpAnaliytics():
     def __init__(self,path):
         self.path_to_analiytic_json = os.path.dirname(os.path.abspath(__file__)) + '/ARPanaliytic.json'
         # self.path_to_blacklist_MAC_addresses = os.path.dirname(os.path.abspath(__file__)) + '/Blacklist_MAC_addresses.csv'
-
+        self.path = path[0]
         self.check_if_cash_file_is_exist_if_not_created()
         self.check_if_history_file_not_created()
         self.suspected_MACs = []
-        self.path = path
+        
         
     def Alert_for_suspected_MAC_address(self,s_MAC,s_IP,victimIP):
         WeAlreadyAlertAboutThatInLastMinute = False
@@ -54,11 +54,12 @@ class arpAnaliytics():
         line = [s_MAC,s_IP,victimIP,victimName,attackerName,date,time_now,time.time()] 
         log('Alert',True)
         log(line,True)
-        sendEmail('ARP Spoofing',str(line))
 
         with open(self.path + '/history.csv', 'a') as f:
             writer = csv.writer(f)
             writer.writerow(line)
+
+        sendEmail('ARP Spoofing',str(line))
         
 
     def updateDataBase(self,listOf_ip_and_mac):
